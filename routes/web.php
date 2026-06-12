@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Hemis\HemisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//oAuth2
+Route::get('/auth/hemis', [HemisController::class, 'redirectToProvider'])->middleware('cors');
+Route::get('/callback', [HemisController::class, 'handleCallback']);
