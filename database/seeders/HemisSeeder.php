@@ -229,15 +229,36 @@ class HemisSeeder extends Seeder
         $resBody = json_decode($res->getBody());
 
         if (isset($resBody->data->pagination->pageCount) && isset($resBody->data->items)) {
+//            foreach ($resBody->data->items as $dt) {
+//                if (strpos($dt->name, 'nofaol') === false) {
+//                    Department::updateOrCreate([
+//                        'id' => $dt->id,
+//                    ],[
+//                        'faculty_id' => $dt->parent,
+//                        'name' => $dt->name,
+//                        'code' => $dt->code,
+//                    ]);
+//                }
+//            }
+
+            $facultyIds = Faculty::pluck('id')->toArray();
+
             foreach ($resBody->data->items as $dt) {
-                if (strpos($dt->name, 'nofaol') === false) {
-                    Department::updateOrCreate([
-                        'id' => $dt->id,
-                    ],[
-                        'faculty_id' => $dt->parent,
-                        'name' => $dt->name,
-                        'code' => $dt->code,
-                    ]);
+
+                if (
+                    strpos($dt->name, 'nofaol') === false &&
+                    in_array($dt->parent, $facultyIds)
+                ) {
+                    Department::updateOrCreate(
+                        [
+                            'id' => $dt->id,
+                        ],
+                        [
+                            'faculty_id' => $dt->parent,
+                            'name'       => $dt->name,
+                            'code'       => $dt->code,
+                        ]
+                    );
                 }
             }
 
@@ -254,14 +275,20 @@ class HemisSeeder extends Seeder
                 // Check if the request was successful
                 if (isset($resBody->data->items)) {
                     foreach ($resBody->data->items as $dt) {
-                        if (strpos($dt->name, 'nofaol') === false) {
-                            Department::updateOrCreate([
-                                'id' => $dt->id,
-                            ],[
-                                'faculty_id' => $dt->parent,
-                                'name' => $dt->name,
-                                'code' => $dt->code,
-                            ]);
+                        if (
+                            strpos($dt->name, 'nofaol') === false &&
+                            in_array($dt->parent, $facultyIds)
+                        ) {
+                            Department::updateOrCreate(
+                                [
+                                    'id' => $dt->id,
+                                ],
+                                [
+                                    'faculty_id' => $dt->parent,
+                                    'name'       => $dt->name,
+                                    'code'       => $dt->code,
+                                ]
+                            );
                         }
                     }
                 }
