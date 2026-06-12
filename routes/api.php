@@ -44,3 +44,8 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
         Route::post('documents',[DocumentController::class,'store']);
     });
 });
+
+
+////oAuth2
+Route::get('/auth/hemis', [HemisController::class, 'redirectToProvider']);
+Route::get('/callback', [HemisController::class, 'handleCallback']);
