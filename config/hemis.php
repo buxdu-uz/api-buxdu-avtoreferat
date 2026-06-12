@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'host' => 'https://student.buxdu.uz/rest/v1/',
-    'api_key' => 'noygajLPy3X7g3dwz3jp76iisR56Prtl',
+    'api_key' => 'wOSI6Gq7XhTcrWvck9YVB5cgt6-3_Rbs',
     'limit' => 100,
 
     'hemis' => [
