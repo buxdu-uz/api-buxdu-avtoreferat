@@ -104,11 +104,11 @@ class HemisController extends Controller
 
         if (!$request->has('code') || $request->get('state') !== Session::get('oauth2state')) {
             Session::forget('oauth2state');
-            return redirect('/')->withErrors('Invalid OAuth state');
-            \Log::info('Invalid OAuth state', [
+            Log::info('Invalid OAuth state', [
                 'request_state' => $request->get('state'),
                 'session_state' => Session::get('oauth2state'),
             ]);
+            return redirect('/')->withErrors('Invalid OAuth state');
         }
 
         try {
@@ -127,12 +127,15 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
+            Log::info('error', [
+                'request_state' => $request->get('state')
+            ]);
             return redirect()->away("https://aftoreferat.buxdu.uz/auth/hemis?state=".$request->get('state'));
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-            \Log::info('error', [
-                'request_state' => $e->getMessage()
+            Log::info('error', [
+                'error->' => $e->getMessage()
             ]);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
