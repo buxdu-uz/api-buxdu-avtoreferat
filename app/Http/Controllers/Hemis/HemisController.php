@@ -145,6 +145,8 @@ class HemisController extends Controller
 
         $request->validate([
             'state' => 'required'
+        ],[
+            'state.required' => 'State parameter is required'
         ]);
 
         Log::info('check hemis auth ', [

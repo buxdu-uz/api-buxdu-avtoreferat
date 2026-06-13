@@ -30,6 +30,22 @@ class UserSeeder extends Seeder
             'university_id' => University::query()->where('code',304)->first()->id,
         ]);
 
+        $teacher2 = User::updateOrCreate([
+            'employee_id_number' => '3042311059',
+        ],[
+            'login' => '3042311059',
+            'firstname' => 'ISTAMOV',
+            'lastname' => 'BEXZOD',
+            'surname' => 'BAFOQULLOVICH',
+            'password' => '3042311059'
+        ]);
+        UserProfile::updateOrCreate([
+            'user_id' => $teacher2->id,
+        ],[
+            'department_id' => 16,
+            'university_id' => University::query()->where('code',304)->first()->id,
+        ]);
+
         $teacher->assignRole('teacher');
     }
 }
