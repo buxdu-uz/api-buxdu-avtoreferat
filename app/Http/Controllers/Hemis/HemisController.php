@@ -127,10 +127,10 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
-            Log::info('error', [
+            Log::info('try error', [
                 'request_state' => $request->get('state')
             ]);
-            return redirect()->away("https://aftoreferat.buxdu.uz/auth/hemis?state=".$request->get('state'));
+            return redirect()->away("https://aftoreferat.buxdu.uz/avtorefarat/auth/hemis?state=".$request->get('state'));
         } catch (Exception $e) {
             Log::info('error', [
                 'error->' => $e->getMessage()
