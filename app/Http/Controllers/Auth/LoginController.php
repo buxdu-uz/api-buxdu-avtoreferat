@@ -21,9 +21,17 @@ class LoginController extends Controller
             $user = User::where('login', $request->login)->first();
 
             $token = $user->createToken('token-name', [$user->login])->plainTextToken;
-            return $this->successResponse([
-                'token' => $token
-            ], new UserResource($user));
+//            return $this->successResponse([
+//                'token' => $token
+//            ], new UserResource($user));
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'user' => new UserResource($user),
+                'token' => $token, // if using Sanctum
+            ]);
+
         }
         return $this->errorResponse('Login or password error', 404);
     }
