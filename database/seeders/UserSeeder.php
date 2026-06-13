@@ -46,6 +46,6 @@ class UserSeeder extends Seeder
             'university_id' => University::query()->where('code',304)->first()->id,
         ]);
 
-        $teacher->assignRole('teacher');
+        $teacher2->assignRole('teacher');
     }
 }
