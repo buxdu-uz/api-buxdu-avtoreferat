@@ -146,6 +146,11 @@ class HemisController extends Controller
         $request->validate([
             'state' => 'required'
         ]);
+
+        Log::info('check hemis auth ', [
+            'reqstate' => $request->state,
+            'sessionstate' => $sessionState->state,
+        ]);
         // Compare state and code from session
         if ($sessionState->state === $request->state) {
             $employee_id = $sessionState->employee_id_number;
