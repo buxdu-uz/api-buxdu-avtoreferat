@@ -122,7 +122,7 @@ class HemisController extends Controller
                 'state' => $request->get('state'),
                 'employee_id_number' => $user['employee_id_number']
             ]);
-            return redirect()->away("https://aftoreferat.buxdu.uz/auth/hemis?state=".$request->get('state'));
+            return redirect()->away("https://shame-karaoke-encourage.ngrok-free.dev/auth/hemis?state=".$request->get('state'));
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
